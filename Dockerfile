@@ -46,7 +46,7 @@ RUN mkdir -p \
 USER appuser
 
 # ── Collect static files (requires STATIC_ROOT set in settings.py) ──────────
-RUN python manage.py collectstatic --noinput --clear --verbosity 0
+RUN python manage.py collectstatic --noinput --clear --verbosity 2
 
 # ── Expose port ─────────────────────────────────────────────────────────────
 EXPOSE 8000
