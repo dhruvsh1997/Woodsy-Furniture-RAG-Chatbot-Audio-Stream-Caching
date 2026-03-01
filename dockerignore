@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+envFChat/
+env/
+
+# Django
+db.sqlite3
+staticfiles/
+*.log
+
+# Secrets
+.env
+
+# Data (mount as volume instead)
+data/raw_docs/
+data/cache_store/
+
+# Dev tools
+.git/
+.gitignore
+.vscode/
+.idea/
+*.md
+docs/
+
+# Docker itself
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db

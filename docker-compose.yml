@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+
+  # ── Redis ─────────────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: woodsy_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Django / Daphne ───────────────────────────────────────────────────────
+  web:
+    build: .
+    container_name: woodsy_web
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Override Redis URL to use the service name instead of 127.0.0.1
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      # Mount raw_docs so you can drop files without rebuilding
+      - ./data/raw_docs:/app/data/raw_docs
+      # Persist SQLite database
+      - sqlite_data:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             daphne -b 0.0.0.0 -p 8000 Furniture_chatbot.asgi:application"
+
+volumes:
+  redis_data:
+  sqlite_data:

@@ -1,0 +1,16 @@
+django>=4.2
+channels>=4.0
+channels-redis>=4.1
+daphne>=4.0
+redis>=5.0
+weaviate-client>=4.0
+langchain>=0.2
+langchain-openai>=0.1
+langchain-weaviate>=0.0.1
+langchain-community>=0.2
+openai>=1.30
+python-dotenv>=1.0
+pypdf>=4.0
+tiktoken>=0.7
+numpy>=1.26
+langchain-text-splitters
